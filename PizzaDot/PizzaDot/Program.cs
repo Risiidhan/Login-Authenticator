@@ -2,6 +2,8 @@ using Microsoft.EntityFrameworkCore;
 using PizzaDot;
 using PizzaDot.Interfaces;
 using PizzaDot.Services;
+using PizzaDot.Helpers;
+
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -16,6 +18,8 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 builder.Services.AddScoped<IPizza, PizzaService>();
 builder.Services.AddScoped<IUser, UserService>();
+builder.Services.AddScoped<IPasswordHasher, PasswordHasher>();
+
 
 
 var app = builder.Build();
