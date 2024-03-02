@@ -7,12 +7,13 @@ namespace PizzaDot.Services
     {
         private readonly ApplicationDBContext _context;
         private readonly IPasswordHasher _passwordHasher;
+        private readonly IJwtAuth _jwtAuth;
 
-
-        public UserService(ApplicationDBContext dBContext, IPasswordHasher passwordHasher)
+        public UserService(ApplicationDBContext dBContext, IPasswordHasher passwordHasher, IJwtAuth jwt)
         {
             _context = dBContext;
             _passwordHasher = passwordHasher;
+            _jwtAuth = jwt; 
         }
 
         public User RegisterUser(User user)
@@ -28,7 +29,7 @@ namespace PizzaDot.Services
             return user;
         }
 
-        public User VerifyUser(User user)
+        public string VerifyUser(User user)
         {
             var foundUser = _context.User.FirstOrDefault(u => u.username == user.username);
             if (foundUser == null)
@@ -37,7 +38,8 @@ namespace PizzaDot.Services
             if(!_passwordHasher.Verify(foundUser.password, user.password))
                 return null;
 
-            return foundUser;
+            var token = _jwtAuth.GenerateJwtToken(foundUser);
+            return token;
         }
     }
 }

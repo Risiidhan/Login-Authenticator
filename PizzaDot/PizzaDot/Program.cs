@@ -3,7 +3,9 @@ using PizzaDot;
 using PizzaDot.Interfaces;
 using PizzaDot.Services;
 using PizzaDot.Helpers;
-
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.IdentityModel.Tokens;
+using System.Text;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -19,8 +21,25 @@ builder.Services.AddSwaggerGen();
 builder.Services.AddScoped<IPizza, PizzaService>();
 builder.Services.AddScoped<IUser, UserService>();
 builder.Services.AddScoped<IPasswordHasher, PasswordHasher>();
+builder.Services.AddScoped<IJwtAuth, JwtAuth>();
 
+builder.Services.AddAuthentication(x =>
+{
+    x.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+    x.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
 
+}).AddJwtBearer(x =>
+{
+    x.RequireHttpsMetadata = false;
+    x.SaveToken = true;
+    x.TokenValidationParameters = new TokenValidationParameters
+    {
+        ValidateIssuerSigningKey = true,
+        IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes("JwtSettingsSecret")),
+        ValidateAudience = false,
+        ValidateIssuer = false
+    };
+});
 
 var app = builder.Build();
 
@@ -32,6 +51,8 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseHttpsRedirection();
+
+app.UseAuthentication();
 
 app.UseAuthorization();
 

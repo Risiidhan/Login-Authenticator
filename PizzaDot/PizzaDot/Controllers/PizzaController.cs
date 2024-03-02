@@ -3,10 +3,12 @@ using Microsoft.AspNetCore.Mvc;
 using PizzaDot.Models;
 using PizzaDot.Interfaces;
 using PizzaDot.Services;
+using Microsoft.AspNetCore.Authorization;
 
 namespace PizzaDot.Controllers
 {
     [Route("api/[controller]")]
+    [Authorize]
     [ApiController]
     public class PizzaController : Controller
     {

@@ -2110,11 +2110,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "F:\\BEng\\AD\\PizzaDot\\PizzaDot\\PizzaDot.csproj",
+      "projectUniqueName": "F:\\.NET\\PizzaDot\\PizzaDot\\PizzaDot.csproj",
       "projectName": "PizzaDot",
-      "projectPath": "F:\\BEng\\AD\\PizzaDot\\PizzaDot\\PizzaDot.csproj",
+      "projectPath": "F:\\.NET\\PizzaDot\\PizzaDot\\PizzaDot.csproj",
       "packagesPath": "C:\\Users\\A\\.nuget\\packages\\",
-      "outputPath": "F:\\BEng\\AD\\PizzaDot\\PizzaDot\\obj\\",
+      "outputPath": "F:\\.NET\\PizzaDot\\PizzaDot\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
         "C:\\Users\\A\\AppData\\Roaming\\NuGet\\NuGet.Config",

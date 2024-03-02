@@ -38,17 +38,18 @@ namespace PizzaDot.Controllers
         public IActionResult Validate(User user)
         {
             if (user == null)
-                return BadRequest();
+                return BadRequest(new {Message = "Wrong Username or Password!"});
 
-            var regUser = _user.VerifyUser(user);
+            var token = _user.VerifyUser(user);
 
-            if (regUser == null)
+            if (token == null)
                 return StatusCode(500);
 
             return Ok(new
             {
-                Message = "Login Successfully!"
-            });
+                Message = "Login Successfully!",
+                Token = token
+            }) ;
         }
     }
 }

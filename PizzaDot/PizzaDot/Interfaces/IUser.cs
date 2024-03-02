@@ -4,7 +4,7 @@ namespace PizzaDot.Interfaces
 {
     public interface IUser
     {
-        User VerifyUser(User user);
+        string VerifyUser(User user);
         User RegisterUser(User user);
     }
 }
