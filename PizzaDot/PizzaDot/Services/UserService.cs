@@ -22,7 +22,11 @@ namespace PizzaDot.Services
         public User RegisterUser(User user)
         {
             if (user == null)
-                return null;
+                throw new ArgumentNullException(nameof(user), "User cannot be null."); 
+
+            var foundUser = _context.User.Where(x => x.username == user.username).FirstOrDefault() ?? null;
+            if (foundUser != null)
+                throw new ArgumentException("User with the same username already exists.", nameof(user.username));
 
             var passwordHash = _passwordHasher.Hash(user.password);
             user.password = passwordHash;

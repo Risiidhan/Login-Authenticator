@@ -23,15 +23,22 @@ namespace PizzaDot.Controllers
             if (user == null)
                 return BadRequest();
 
-            var regUser = _user.RegisterUser(user);
-
-            if (regUser == null)
-                return StatusCode(500);
-
-            return Ok(new
+            try
             {
-                Message = "Registered Successfully!"
-            });
+                var regUser = _user.RegisterUser(user);
+
+                return Ok(new
+                {
+                    Message = "Registered Successfully!"
+                });
+            }
+            catch (ArgumentException ex) // Catch the exception thrown from RegisterUser method
+            {
+                return StatusCode(500, new
+                {
+                    ErrorMessage = ex.Message
+                });
+            }
         }
 
         [HttpPost("Verify")]
