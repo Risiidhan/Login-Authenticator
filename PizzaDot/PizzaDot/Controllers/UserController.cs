@@ -51,5 +51,23 @@ namespace PizzaDot.Controllers
                 Token = token
             }) ;
         }
+
+        [HttpGet]
+        public IActionResult GetAllUsers()
+        {
+            var users = _user.GetAllUser();
+            return Ok(users);
+        }
+
+        [HttpGet("{id}")]
+        public IActionResult GetUserById(int id)
+        {
+            var user = _user.GetUserByID(id);
+            if (user == null)
+            {
+                return NotFound();
+            }
+            return Ok(user);
+        }
     }
 }

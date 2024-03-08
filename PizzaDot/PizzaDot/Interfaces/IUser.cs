@@ -1,4 +1,5 @@
-﻿using PizzaDot.Models;
+﻿using PizzaDot.Dtos;
+using PizzaDot.Models;
 
 namespace PizzaDot.Interfaces
 {
@@ -6,5 +7,8 @@ namespace PizzaDot.Interfaces
     {
         string VerifyUser(User user);
         User RegisterUser(User user);
+        IEnumerable<UserDto> GetAllUser();
+        UserDto GetUserByID(int id);
+
     }
 }

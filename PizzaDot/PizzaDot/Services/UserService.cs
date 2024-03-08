@@ -1,5 +1,8 @@
 ﻿using PizzaDot.Interfaces;
 using PizzaDot.Models;
+using PizzaDot.Mapper;
+using PizzaDot.Dtos;
+using System.Linq;
 
 namespace PizzaDot.Services
 {
@@ -40,6 +43,18 @@ namespace PizzaDot.Services
 
             var token = _jwtAuth.GenerateJwtToken(foundUser);
             return token;
+        }
+
+        public IEnumerable<UserDto> GetAllUser()
+        {
+            return _context.User.ToList()
+                .Select(s => UserMapper.MapToUserDto(s));
+        }
+
+        public UserDto GetUserByID(int id)
+        {
+            var foundUser = _context.User.Where(x => x.id == id).FirstOrDefault() ?? null;
+            return UserMapper.MapToUserDto(foundUser);
         }
     }
 }
